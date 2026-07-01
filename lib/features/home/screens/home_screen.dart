@@ -4,11 +4,10 @@ import 'package:sixam_mart_delivery/features/dashboard/screens/dashboard_screen.
 import 'package:sixam_mart_delivery/features/home/widgets/active_order_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/active_ride_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/home_wallet_widget.dart';
-import 'package:sixam_mart_delivery/features/home/widgets/order_count_widget.dart';
+import 'package:sixam_mart_delivery/features/home/widgets/orders_and_rides_view.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/referal_card_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/ride_activity_view.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/ride_floating_button_widget.dart';
-import 'package:sixam_mart_delivery/features/home/widgets/ride_order_count_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/vehicle_add_widget.dart';
 import 'package:sixam_mart_delivery/features/notification/controllers/notification_controller.dart';
 import 'package:sixam_mart_delivery/features/delivery_module/order/controllers/order_controller.dart';
@@ -316,13 +315,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       profileController: profileController,
                                     ),
 
-                                  isRideActive
-                                      ? RideOrderCountWidget(
-                                          profileController: profileController,
-                                        )
-                                      : OrderCountWidget(
-                                          profileController: profileController,
-                                        ),
+                                  OrdersAndRidesView(
+                                    profileController: profileController,
+                                  ),
 
                                   isRideActive
                                       ? RideActivityView()
