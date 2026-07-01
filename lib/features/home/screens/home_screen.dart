@@ -3,8 +3,7 @@ import 'package:sixam_mart_delivery/features/auth/controllers/auth_controller.da
 import 'package:sixam_mart_delivery/features/dashboard/screens/dashboard_screen.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/active_order_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/active_ride_widget.dart';
-import 'package:sixam_mart_delivery/features/home/widgets/cash_in_hand_card_widget.dart';
-import 'package:sixam_mart_delivery/features/home/widgets/home_earning_widget.dart';
+import 'package:sixam_mart_delivery/features/home/widgets/home_wallet_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/order_count_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/referal_card_widget.dart';
 import 'package:sixam_mart_delivery/features/home/widgets/ride_activity_view.dart';
@@ -284,15 +283,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ?.vehicleRequestStatus ==
                                     "pending";
 
-                            bool showEarningWidget =
-                                profileController.profileModel != null &&
-                                profileController.profileModel!.earnings == 1;
-
-                            bool showCashInHandCard =
-                                profileController.profileModel != null &&
-                                profileController.profileModel!.cashInHands! >
-                                    0;
-
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                 vertical: Dimensions.paddingSizeDefault,
@@ -315,8 +305,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
 
-                                  if (showEarningWidget)
-                                    HomeEarningWidget(
+
+                                  // Wallet card — always visible when profile
+                                  // is loaded. Shows withdrawable balance,
+                                  // total earned, and pending withdrawals.
+                                  // NOTE: shown independently of earnings flag
+                                  // so freelancers with earning=0 still see it.
+                                  if (profileController.profileModel != null && !isRideActive)
+                                    HomeWalletWidget(
                                       profileController: profileController,
                                     ),
 

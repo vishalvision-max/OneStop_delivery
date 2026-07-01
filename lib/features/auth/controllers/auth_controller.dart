@@ -37,7 +37,7 @@ class AuthController extends GetxController implements GetxService {
   String? _selectedIdentityType;
   String? get selectedIdentityType => _selectedIdentityType;
   
-  final List<String> _dmTypeList = ['freelancer', 'salary_based'];
+  final List<String> _dmTypeList = ['freelancer' /*, 'salary_based'*/];
   List<String> get dmTypeList => _dmTypeList;
 
   String? _selectedDmType;

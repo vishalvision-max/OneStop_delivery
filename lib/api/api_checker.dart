@@ -8,36 +8,49 @@ import 'package:sixam_mart_delivery/common/models/error_response.dart';
 
 class ApiChecker {
   static void checkApi(Response response) {
-
     ErrorResponse? errorResponse;
 
-    try{
+    try {
       errorResponse = ErrorResponse.fromJson(response.body);
-    }catch(e){
+    } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
 
-    if(response.statusCode == 401) {
+    if (response.statusCode == 401) {
+      if (kDebugMode) {
+        print("Unauthorized access detected");
+      }
       Get.find<AuthController>().clearSharedData();
       Get.find<ProfileController>().stopLocationRecord();
-      if(Get.currentRoute != RouteHelper.signIn){
+      if (Get.currentRoute != RouteHelper.signIn) {
         Get.offAllNamed(RouteHelper.getSignInRoute());
       }
-    }
-    else if(response.statusCode == 403 && (response.body['message'] != null || response.body['errors'] != null)){
-      String message = response.body['message'] ?? (response.body['errors'] != null ? errorResponse?.errors?.first.message : response.statusText);
-      showCustomSnackBar( message);
-
-    }
-    else if((response.statusCode == 400 && errorResponse != null &&   errorResponse.errors !=null && errorResponse.errors!.isNotEmpty) || (response.statusCode == 400 && response.body['message'] != null)){
-      showCustomSnackBar( errorResponse != null && errorResponse.errors !=null && errorResponse.errors!.isNotEmpty ? errorResponse.errors?.first.message : response.body['message'] ?? "");
-    }
-    else if((response.statusCode == 409 && response.body['message'] != null)){
-      showCustomSnackBar( response.body['message'] ?? "");
-    }
-    else {
+    } else if (response.statusCode == 403 &&
+        (response.body['message'] != null || response.body['errors'] != null)) {
+      String message =
+          response.body['message'] ??
+          (response.body['errors'] != null
+              ? errorResponse?.errors?.first.message
+              : response.statusText);
+      showCustomSnackBar(message);
+    } else if ((response.statusCode == 400 &&
+            errorResponse != null &&
+            errorResponse.errors != null &&
+            errorResponse.errors!.isNotEmpty) ||
+        (response.statusCode == 400 && response.body['message'] != null)) {
+      showCustomSnackBar(
+        errorResponse != null &&
+                errorResponse.errors != null &&
+                errorResponse.errors!.isNotEmpty
+            ? errorResponse.errors?.first.message
+            : response.body['message'] ?? "",
+      );
+    } else if ((response.statusCode == 409 &&
+        response.body['message'] != null)) {
+      showCustomSnackBar(response.body['message'] ?? "");
+    } else {
       showCustomSnackBar(response.statusText);
     }
   }

@@ -37,6 +37,11 @@ class _WithdrawBottomSheetState extends State<WithdrawBottomSheet> {
     amountController.text = "${widget.withdrawAmount}";
     Get.find<DisbursementController>().updateSelectedWithdrawMethod(shouldUpdate: false);
     Get.find<DisbursementController>().setMethod(isUpdate: false);
+
+    // Fetch the DM's saved withdrawal methods so the dropdown is populated.
+    // This is needed when the bottom sheet is opened from the home wallet card
+    // where getDisbursementMethodList() may not have been called yet.
+    Get.find<DisbursementController>().getDisbursementMethodList();
   }
 
   @override
