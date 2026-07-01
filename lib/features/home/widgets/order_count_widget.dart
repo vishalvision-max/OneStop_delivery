@@ -15,57 +15,91 @@ class OrderCountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(Dimensions.paddingSizeDefault, 0,Dimensions.paddingSizeDefault, Dimensions.paddingSizeLarge ),
-      child: Column(children: [
-        TitleWidget(title: 'orders'.tr),
-        const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+      padding: const EdgeInsets.fromLTRB(
+        Dimensions.paddingSizeDefault,
+        0,
+        Dimensions.paddingSizeDefault,
+        Dimensions.paddingSizeLarge,
+      ),
+      child: Column(
+        children: [
+          TitleWidget(title: 'orders'.tr),
+          const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
-        (profileController.profileModel != null && profileController.profileModel!.earnings == 1) ? IntrinsicHeight(
-          child: Row(children: [
-          
-            _OrderCountCardWidget(
-              title: 'todays_orders'.tr,
-              value: profileController.profileModel?.todaysOrderCount.toString(),
-            ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
-          
-            _OrderCountCardWidget(
-              title: 'this_week_orders'.tr,
-              value: profileController.profileModel?.thisWeekOrderCount.toString(),
-            ),
-            const SizedBox(width: Dimensions.paddingSizeDefault),
-          
-            _OrderCountCardWidget(
-              title: 'total_orders'.tr,
-              value: profileController.profileModel?.orderCount.toString(),
-            ),
-          
-          ]),
-        ) : Column(children: [
+          (profileController.profileModel != null &&
+                  profileController.profileModel!.earnings == 1)
+              ? IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      _OrderCountCardWidget(
+                        title: 'todays_orders'.tr,
+                        value: profileController.profileModel?.todaysOrderCount
+                            .toString(),
+                      ),
+                      const SizedBox(width: Dimensions.paddingSizeDefault),
 
-          Row(children: [
+                      _OrderCountCardWidget(
+                        title: 'this_week_orders'.tr,
+                        value: profileController
+                            .profileModel
+                            ?.thisWeekOrderCount
+                            .toString(),
+                      ),
+                      const SizedBox(width: Dimensions.paddingSizeDefault),
 
-            Expanded(child: CountCardWidget(
-              title: 'todays_orders'.tr, backgroundColor: const Color(0xffE5EAFF), height: 180,
-              value: profileController.profileModel?.todaysOrderCount.toString(),
-            )),
-            const SizedBox(width: Dimensions.paddingSizeSmall),
+                      _OrderCountCardWidget(
+                        title: 'total_orders'.tr,
+                        value: profileController.profileModel?.orderCount
+                            .toString(),
+                      ),
+                    ],
+                  ),
+                )
+              : Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CountCardWidget(
+                            title: 'todays_orders'.tr,
+                            backgroundColor: const Color(0xffE5EAFF),
+                            height: 180,
+                            value: profileController
+                                .profileModel
+                                ?.todaysOrderCount
+                                .toString(),
+                          ),
+                        ),
+                        const SizedBox(width: Dimensions.paddingSizeSmall),
 
-            Expanded(child: CountCardWidget(
-              title: 'this_week_orders'.tr, backgroundColor: const Color(0xffE84E50).withValues(alpha: 0.2), height: 180,
-              value: profileController.profileModel?.thisWeekOrderCount.toString(),
-            )),
+                        Expanded(
+                          child: CountCardWidget(
+                            title: 'this_week_orders'.tr,
+                            backgroundColor: const Color(
+                              0xffE84E50,
+                            ).withValues(alpha: 0.2),
+                            height: 180,
+                            value: profileController
+                                .profileModel
+                                ?.thisWeekOrderCount
+                                .toString(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
 
-          ]),
-          const SizedBox(height: Dimensions.paddingSizeSmall),
-
-          CountCardWidget(
-            title: 'total_orders'.tr, backgroundColor: const Color(0xffE1FFD8), height: 140,
-            value: profileController.profileModel?.orderCount.toString(),
-          ),
-
-        ])
-      ]),
+                    CountCardWidget(
+                      title: 'total_orders'.tr,
+                      backgroundColor: const Color(0xffE1FFD8),
+                      height: 140,
+                      value: profileController.profileModel?.orderCount
+                          .toString(),
+                    ),
+                  ],
+                ),
+        ],
+      ),
     );
   }
 }
@@ -80,29 +114,48 @@ class _OrderCountCardWidget extends StatelessWidget {
     return Expanded(
       child: CustomCard(
         isBorder: false,
-        padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraLarge, vertical: Dimensions.paddingSizeLarge),
-        child: Column(children: [
+        padding: const EdgeInsets.symmetric(
+          horizontal: Dimensions.paddingSizeExtraLarge,
+          vertical: Dimensions.paddingSizeLarge,
+        ),
+        child: Column(
+          children: [
+            value != null
+                ? Text(
+                    value!,
+                    style: robotoBold.copyWith(
+                      fontSize: Dimensions.fontSizeExtraLarge,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                : Shimmer(
+                    duration: const Duration(seconds: 2),
+                    color: Theme.of(context).shadowColor,
+                    child: Container(
+                      height: 15,
+                      width: 15,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+            const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 
-          value != null ? Text(
-            value!, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeExtraLarge, color: Theme.of(context).textTheme.bodyLarge?.color), textAlign: TextAlign.center,
-            maxLines: 1, overflow: TextOverflow.ellipsis,
-          ) : Shimmer(
-            duration: const Duration(seconds: 2),
-            color: Theme.of(context).shadowColor,
-            child: Container(height: 15, width: 15, decoration: BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(5))),
-          ),
-          const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-
-          Text(
-            title,
-            style: robotoRegular.copyWith(color: Theme.of(context).hintColor, fontSize: Dimensions.fontSizeSmall),
-            textAlign: TextAlign.center,
-          ),
-
-        ]),
+            Text(
+              title,
+              style: robotoRegular.copyWith(
+                color: Theme.of(context).hintColor,
+                fontSize: Dimensions.fontSizeSmall,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-

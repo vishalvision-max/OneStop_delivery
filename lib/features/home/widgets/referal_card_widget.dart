@@ -14,43 +14,68 @@ class ReferralCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(()=> const ReferAndEarnScreen());
+        Get.to(() => const ReferAndEarnScreen());
       },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
           color: Theme.of(context).disabledColor.withValues(alpha: 0.125),
         ),
-        padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall, horizontal: Dimensions.paddingSizeLarge),
+        padding: const EdgeInsets.symmetric(
+          vertical: Dimensions.paddingSizeSmall,
+          horizontal: Dimensions.paddingSizeLarge,
+        ),
         margin: EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeDefault),
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Expanded(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('invite_and_get_rewards'.tr, style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge)),
-              const SizedBox(height: Dimensions.paddingSizeSmall),
-
-              Text('share_code_with_your_friends'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).textTheme.bodyLarge!.color!.withValues(alpha: 0.7))),
-              const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-
-              Row(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomButtonWidget(
-                    height: 30, width: 130,
-                    buttonText: 'invite_friends'.tr,
-                    fontSize: Dimensions.fontSizeSmall,
-                    onPressed: (){
-                      Get.bottomSheet(const ReferBottomSheet(), isScrollControlled: true);
-                    },
+                  Text(
+                    'invite_and_get_rewards'.tr,
+                    style: robotoBold.copyWith(
+                      fontSize: Dimensions.fontSizeLarge,
+                    ),
+                  ),
+                  const SizedBox(height: Dimensions.paddingSizeSmall),
+
+                  Text(
+                    'share_code_with_your_friends'.tr,
+                    style: robotoRegular.copyWith(
+                      fontSize: Dimensions.fontSizeSmall,
+                      color: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.color!.withValues(alpha: 0.7),
+                    ),
+                  ),
+                  const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+
+                  Row(
+                    children: [
+                      CustomButtonWidget(
+                        height: 30,
+                        width: 130,
+                        buttonText: 'invite_friends'.tr,
+                        fontSize: Dimensions.fontSizeSmall,
+                        onPressed: () {
+                          Get.bottomSheet(
+                            const ReferBottomSheet(),
+                            isScrollControlled: true,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
+            ),
+            const SizedBox(width: Dimensions.paddingSizeSmall),
 
-            ]),
-          ),
-          const SizedBox(width: Dimensions.paddingSizeSmall),
-
-          Image.asset(Images.shareImage, width: 100,)
-        ]),
+            Image.asset(Images.shareImage, width: 100),
+          ],
+        ),
       ),
     );
   }
