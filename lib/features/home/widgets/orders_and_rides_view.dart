@@ -47,7 +47,7 @@ class OrdersAndRidesView extends StatelessWidget {
               ),
               const SizedBox(width: Dimensions.paddingSizeSmall),
               Text(
-                'activity overview'.tr,
+                'Activity overview'.tr,
                 style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge),
               ),
             ],

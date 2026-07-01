@@ -272,6 +272,12 @@ class AppConstants {
       countryCode: 'BN',
       languageCode: 'bn',
     ),
+    LanguageModel(
+      imageUrl: Images.french,
+      languageName: 'French',
+      countryCode: 'FR',
+      languageCode: 'fr',
+    ),
   ];
 
   ///map zoom
